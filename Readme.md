@@ -50,7 +50,7 @@ This project is a mix of fun and technical challenges, making it perfect for dev
 2. **Backend Skills:** Building a database-driven API and handling image uploads efficiently.  
 3. **Integration Experience:** Working with facial recognition and external APIs.  
 4. **Creative Value:** The project is highly shareable and fun, making it a great portfolio addition.  
-5. **Practical Learning:** Explore full-stack development with real-world application scenarios 
+5. **Practical Learning:** Explore full-stack development with real-world application scenarios.  
 
 ### Milestone 2 : Project Setup and Login Page
 Created a structured folder hierarchy for the project.
