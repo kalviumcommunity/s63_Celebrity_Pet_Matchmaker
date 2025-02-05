@@ -1,13 +1,17 @@
 const express = require("express");
+const connectdataBse = require("./dataBase");
+// database()
 const app = express();
+require('dotenv').config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 6000;
 
 // Error-handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack); // Log the error for debugging
     res.status(500).json({ error: "Internal Server Error" });
 });
+connectdataBse();
 
 // Basic /ping route with error handling
 app.get("/ping", (req, res, next) => {
