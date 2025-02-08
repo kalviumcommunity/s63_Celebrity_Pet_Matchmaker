@@ -1,30 +1,41 @@
+require("dotenv").config();
 const express = require("express");
-const connectdataBse = require("./dataBase");
-// database()
+const { MongoClient } = require("mongodb");
+
 const app = express();
-require('dotenv').config();
+const port = 6000;
 
-const PORT = process.env.PORT || 6000;
-
-// Error-handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack); // Log the error for debugging
-    res.status(500).json({ error: "Internal Server Error" });
+const client = new MongoClient(process.env.DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 });
-connectdataBse();
 
-// Basic /ping route with error handling
-app.get("/ping", (req, res, next) => {
+let dbStatus = "Disconnected";
+
+// Connect to MongoDB
+async function connectDB() {
     try {
-        // Simulating a successful response
-        res.status(200).send("Pong!");
+        await client.connect();
+        dbStatus = "Connected to MongoDB";
+        console.log(dbStatus);
     } catch (error) {
-        // Pass the error to the error-handling middleware
-        next(error);
+        dbStatus = "Failed to connect to MongoDB";
+        console.error(error);
+    }
+}
+
+connectDB();
+
+// Route to check database status dynamically
+app.get("/", async (req, res) => {
+    try {
+        await client.db("admin").command({ ping: 1 }); // Pings the DB to check the connection
+        res.send("Database Connection Status: Connected to MongoDB");
+    } catch (error) {
+        res.send("Database Connection Status: Failed to connect to MongoDB");
     }
 });
 
-// Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });
