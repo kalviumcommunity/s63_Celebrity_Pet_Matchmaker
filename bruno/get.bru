@@ -1,0 +1,20 @@
+meta {
+  name: get
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:6000/api/pets
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Margherita Pizza",
+    "description": "Classic pizza with tomato sauce, mozzarella, and basil",
+    "price": 12.99
+  }
+  
+}
