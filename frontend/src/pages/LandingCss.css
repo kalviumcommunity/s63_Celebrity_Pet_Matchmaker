@@ -1,0 +1,67 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8ff;
+  }
+  
+  /* Landing Page Container */
+  .landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    background: linear-gradient(to bottom, #00838f, #005662);
+    color: white;
+    padding: 20px;
+  }
+  
+  /* Title Styling */
+  .landing-container h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Subtitle Styling */
+  .landing-container p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin-bottom: 20px;
+  }
+  
+  /* CTA Button */
+  .landing-container .cta-button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #ffcc00;
+    color: #000;
+    font-weight: bold;
+    transition: 0.3s ease;
+  }
+  
+  .landing-container .cta-button:hover {
+    background-color: #ffb300;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .landing-container h1 {
+      font-size: 2.5rem;
+    }
+  
+    .landing-container p {
+      font-size: 1rem;
+    }
+  
+    .landing-container .cta-button {
+      font-size: 1rem;
+      padding: 10px 20px;
+    }
+  }
+  
