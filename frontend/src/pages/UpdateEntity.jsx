@@ -8,7 +8,7 @@ const UpdateEntity = () => {
 
   // Fetch entity details
   useEffect(() => {
-    fetch(`http://localhost:6000/entities/${id}`)
+    fetch(`http://localhost:5000/entities/${id}`)
       .then((res) => res.json())
       .then((data) => setEntity(data))
       .catch((err) => console.error("Error fetching entity:", err));
@@ -17,7 +17,7 @@ const UpdateEntity = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`http://localhost:6000/entities/${id}`, {
+    const response = await fetch(`http://localhost:5000/entities/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(entity),
