@@ -1,26 +1,40 @@
+require("dotenv").config(); // Load environment variables
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
-const entityRoutes = require("./routes"); // ✅ Corrected path
+const userRoutes = require("./routes/userRoutes");
+const entityRoutes = require("./routes/entityRoutes");
+const { connectMongoDB, connectMySQL, sequelize } = require("./schema");
 
 const app = express();
-const PORT = 6000;
-const MONGO_URI = "mongodb://localhost:27017/yourDB"; // Update your database name
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 
-// Use the Routes
-app.use("/api", entityRoutes);
+// ✅ Debugging Log (Ensure server is receiving requests)
+app.use((req, res, next) => {
+    console.log(`📢 [${req.method}] ${req.path}`);
+    next();
+});
 
-// Connect to MongoDB
-mongoose
-  .connect(MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.error("❌ MongoDB Connection Error:", err));
+// ✅ Routes
+app.use("/api/users", userRoutes);  // Fetch all users for dropdown
+app.use("/api/entities", entityRoutes);  // Fetch entities by user ID
 
-// Start Server
+// ✅ Connect to Databases
+connectMongoDB();
+connectMySQL()
+    .then(() => {
+        console.log("✅ MySQL Connected");
+
+        // ✅ Sync Sequelize Models *only after* MySQL is connected
+        return sequelize.sync();
+    })
+    .then(() => console.log("✅ MySQL Tables Synced"))
+    .catch(err => console.error("❌ MySQL Sync Error:", err));
+
+// ✅ Start Server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
