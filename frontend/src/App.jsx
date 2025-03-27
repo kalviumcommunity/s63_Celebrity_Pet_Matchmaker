@@ -6,6 +6,10 @@ import MyComponent from "./MyComponent";
 import AddEntity from "./pages/AddEntity";
 import UpdateEntity from "./pages/UpdateEntity";
 import EntityList from "./pages/EntityList"; 
+import Login from "./pages/Login";
+import MysteryPetGenerator from "./pages/MysteryPetGenerator";
+import Navbar from "./components/Navbar";
+import { AuthProvider } from "./context/authContext";
 import "./pages/LandingCss.css";
 
 function NotFound() {
@@ -31,49 +35,52 @@ function App() {
   };
 
   return (
-    <Router>
-      <div>
-        {/* Navigation Bar */}
-        <nav style={{ padding: "10px", background: "#f0f0f0" }}>
-          <Link to="/" style={{ marginRight: "15px" }}>Home</Link>
-          <Link to="/add-entity" style={{ marginRight: "15px" }}>Add Entity</Link>
-
+    <AuthProvider>
+      <Router>
+        <div>
+          {/* Navigation Bar */}
+          <Navbar />
+          
           {/* User Selection Dropdown */}
-          <select
-            value={selectedUser}
-            onChange={(e) => setSelectedUser(e.target.value)}
-            style={{ marginLeft: "15px" }}
-          >
-            <option value="">Select User</option>
-            {users.map((user) => (
-              <option key={user.id} value={user.id}>
-                {user.name}
-              </option>
-            ))}
-          </select>
+          <div style={{ padding: "10px", background: "#f0f0f0" }}>
+            <select
+              value={selectedUser}
+              onChange={(e) => setSelectedUser(e.target.value)}
+              style={{ marginLeft: "15px" }}
+            >
+              <option value="">Select User</option>
+              {users.map((user) => (
+                <option key={user.id} value={user.id}>
+                  {user.name}
+                </option>
+              ))}
+            </select>
 
-          {/* Button to fetch user's entities */}
-          {selectedUser && (
-            <Link to={`/entities/${selectedUser}`} style={{ marginLeft: "10px" }}>
-              <button>View Entities</button>
-            </Link>
-          )}
-        </nav>
+            {/* Button to fetch user's entities */}
+            {selectedUser && (
+              <Link to={`/entities/${selectedUser}`} style={{ marginLeft: "10px" }}>
+                <button>View Entities</button>
+              </Link>
+            )}
+          </div>
 
-        {/* Application Routes */}
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/entities" element={<EntityList />} />
-          <Route path="/entities/:userId" element={<EntityList />} /> {/* Filtered list */}
-          <Route path="/add-entity" element={<AddEntity />} />
-          <Route path="/update-entity/:id" element={<UpdateEntity />} />
-          <Route path="*" element={<NotFound />} /> {/* 404 Page */}
-        </Routes>
+          {/* Application Routes */}
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/mystery-pet" element={<MysteryPetGenerator />} />
+            <Route path="/entities" element={<EntityList />} />
+            <Route path="/entities/:userId" element={<EntityList />} /> {/* Filtered list */}
+            <Route path="/add-entity" element={<AddEntity />} />
+            <Route path="/update-entity/:id" element={<UpdateEntity />} />
+            <Route path="*" element={<NotFound />} /> {/* 404 Page */}
+          </Routes>
 
-        {/* Additional Component */}
-        <MyComponent />
-      </div>
-    </Router>
+          {/* Additional Component */}
+          <MyComponent />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
