@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const entityRoutes = require("./routes/entityRoutes");
+const authRoutes = require("./routes/authRoutes");
 const { connectMongoDB, connectMySQL, sequelize } = require("./schema");
 
 const app = express();
@@ -10,7 +11,10 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', // Frontend URL
+    credentials: true // Allow cookies to be sent with requests
+}));
 
 // ✅ Debugging Log (Ensure server is receiving requests)
 app.use((req, res, next) => {
@@ -21,6 +25,7 @@ app.use((req, res, next) => {
 // ✅ Routes
 app.use("/api/users", userRoutes);  // Fetch all users for dropdown
 app.use("/api/entities", entityRoutes);  // Fetch entities by user ID
+app.use("/api/auth", authRoutes);  // Authentication routes
 
 // ✅ Connect to Databases
 connectMongoDB();
