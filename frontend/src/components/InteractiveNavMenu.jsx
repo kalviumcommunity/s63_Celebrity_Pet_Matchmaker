@@ -72,10 +72,16 @@ const InteractiveNavMenu = ({ colorScheme = 'teal' }) => {
       description: 'Return to the main page'
     },
     { 
-      path: '/pet-fashion', 
-      label: 'Pet Fashion', 
-      icon: '👔',
-      description: 'Design and dress up pets'
+      path: '/entities', 
+      label: 'My Pets', 
+      icon: '🐾',
+      description: 'View and manage your pets'
+    },
+    { 
+      path: '/add-entity', 
+      label: 'Add Pet', 
+      icon: '➕',
+      description: 'Add a new pet to your collection'
     },
     { 
       path: '/mystery-pet', 
@@ -84,28 +90,40 @@ const InteractiveNavMenu = ({ colorScheme = 'teal' }) => {
       description: 'Generate a pet based on your personality'
     },
     { 
-      path: '/pet-name-lab', 
-      label: 'Name Lab', 
-      icon: '🏷️',
-      description: 'Find the perfect name for your pet'
+      path: '/pet-quiz', 
+      label: 'Pet Quiz', 
+      icon: '❓',
+      description: 'Take fun pet-related quizzes'
     },
     { 
-      path: '/adoption-stories', 
-      label: 'Adoption Stories', 
-      icon: '📖',
-      description: 'Read heartwarming adoption tales'
+      path: '/pet-gallery', 
+      label: 'Pet Gallery', 
+      icon: '🖼️',
+      description: 'Browse user-uploaded pet photos'
     },
     { 
-      path: '/pet-training', 
-      label: 'Training Simulator', 
-      icon: '🦮',
-      description: 'Train your virtual pet'
+      path: '/virtual-pet', 
+      label: 'Virtual Pet', 
+      icon: '🎮',
+      description: 'Adopt and interact with a virtual pet'
     },
     { 
-      path: '/pet-map', 
-      label: 'Pet Map', 
-      icon: '🗺️',
-      description: 'Find pet-friendly locations near you'
+      path: '/ar-mode', 
+      label: 'AR Mode', 
+      icon: '📱',
+      description: 'See virtual pets in your surroundings'
+    },
+    { 
+      path: '/leaderboard', 
+      label: 'Leaderboard', 
+      icon: '🏆',
+      description: 'View top pet owners and achievements'
+    },
+    { 
+      path: '/adoption', 
+      label: 'Adopt a Pet', 
+      icon: '💖',
+      description: 'Find real pets in need of a home'
     },
   ];
 
@@ -272,7 +290,11 @@ const InteractiveNavMenu = ({ colorScheme = 'teal' }) => {
                   backgroundColor: colors.hover,
                 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={logout}
+                onClick={() => {
+                  logout();
+                  // Redirect to login page after logout
+                  window.location.href = '/login';
+                }}
                 style={{
                   backgroundColor: colors.secondary,
                   color: colors.text,
